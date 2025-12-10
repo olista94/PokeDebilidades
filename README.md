@@ -61,11 +61,12 @@ Por eso puede desplegarse muy fácilmente:
 ---
 
 ## 🧩 Estructura del proyecto
-
+```
 ├── index.html # Aplicación principal
 ├── manifest.json # Manifest para PWA (permite icono y modo app)
 ├── icon-192.png # Icono de la aplicación
 └── README.md # Este archivo
+```
 
 ---
 
@@ -98,5 +99,6 @@ La app mostrará:
 - Sin efecto: **Fantasma (x0)**  
 
 ---
+
 
 ¡Disfruta de tu Pokédex de debilidades!
