@@ -141,6 +141,40 @@
       box-shadow: 0 0 0 2px rgba(255,203,5,0.7);
     }
 
+    .input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: #e3350d;
+  color: white;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.clear-btn:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+/* dejamos espacio para la X dentro del input */
+.input-wrapper input {
+  padding-right: 36px;
+}
+
     .btn-primary {
       border: none;
       border-radius: 999px;
@@ -385,12 +419,16 @@
       </label>
       <form id="pokemonForm">
         <div class="input-row">
-          <input
-            type="text"
-            id="pokemonInput"
-            placeholder="Ej: meowth, pikachu..."
-            autocomplete="off"
-          />
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="pokemonInput"
+              placeholder="Ej: meowth, pikachu..."
+              autocomplete="off"
+            />
+            <button type="button" id="clearBtn" class="clear-btn">×</button>
+          </div>
+          
           <button type="submit" class="btn-primary">
             Buscar
           </button>
@@ -510,6 +548,8 @@
     const superEffectiveEl = document.getElementById("superEffective");
     const notVeryEffectiveEl = document.getElementById("notVeryEffective");
     const noEffectEl = document.getElementById("noEffect");
+	
+	const clearBtn = document.getElementById("clearBtn");
 
     let allPokemonNames = [];
 
@@ -554,6 +594,9 @@
         .join("");
 
       suggestionsBox.style.display = "block";
+
+      // Mostrar u ocultar la X
+      clearBtn.style.display = pokemonInput.value ? "flex" : "none";
     });
 
     suggestionsBox.addEventListener("click", (e) => {
@@ -586,6 +629,16 @@
 
       await fetchPokemon(name);
     });
+	
+	clearBtn.addEventListener("click", () => {
+		pokemonInput.value = "";
+		clearBtn.style.display = "none";
+		suggestionsBox.style.display = "none";
+		suggestionsBox.innerHTML = "";
+		resultsCard.style.display = "none";
+		messageBox.style.display = "none";
+		pokemonInput.focus();
+	});
 
     // ==========================
     // LLAMADA A LA POKEAPI
@@ -709,4 +762,3 @@
   </script>
 </body>
 </html>
-
