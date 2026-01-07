@@ -142,38 +142,39 @@
     }
 
     .input-wrapper {
-  position: relative;
-  flex: 1;
-}
-
-.clear-btn {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: none;
-  background: #e3350d;
-  color: white;
-  font-size: 16px;
-  line-height: 20px;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.clear-btn:active {
-  transform: translateY(-50%) scale(0.9);
-}
-
-/* dejamos espacio para la X dentro del input */
-.input-wrapper input {
-  padding-right: 36px;
-}
+	position: relative;
+	flex: 1;
+	min-width: 0;
+	}
+	
+	.clear-btn {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: none;
+	background: #e3350d;
+	color: white;
+	font-size: 16px;
+	line-height: 20px;
+	cursor: pointer;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	}
+	
+	.clear-btn:active {
+	transform: translateY(-50%) scale(0.9);
+	}
+	
+	/* dejamos espacio para la X dentro del input */
+	.input-wrapper input {
+	padding-right: 36px;
+	}
 
     .btn-primary {
       border: none;
@@ -385,6 +386,7 @@
     /* Un poquito más espacioso en pantallas más grandes */
     @media (min-width: 600px) {
       .app {
+      .app {
         padding: 18px 20px 22px;
       }
     }
@@ -572,40 +574,42 @@
     // ==========================
     // SUGERENCIAS MIENTRAS ESCRIBES
     // ==========================
-    pokemonInput.addEventListener("input", () => {
-      const value = pokemonInput.value.trim().toLowerCase();
-      if (!value || allPokemonNames.length === 0) {
-        suggestionsBox.style.display = "none";
-        suggestionsBox.innerHTML = "";
-        return;
-      }
-
-      const matches = allPokemonNames
-        .filter(name => name.startsWith(value))
-        .slice(0, 8);
-
-      if (matches.length === 0) {
-        suggestionsBox.style.display = "none";
-        suggestionsBox.innerHTML = "";
-        return;
-      }
-
-      suggestionsBox.innerHTML = matches
-        .map(name => `<div class="suggestion-item" data-name="${name}">${name}</div>`)
-        .join("");
-
-      suggestionsBox.style.display = "block";
-
-      // Mostrar u ocultar la X
-      clearBtn.style.display = pokemonInput.value ? "flex" : "none";
-    });
+	pokemonInput.addEventListener("input", () => {
+	const value = pokemonInput.value.trim().toLowerCase();
+	
+	// Mostrar u ocultar la X SIEMPRE
+	clearBtn.style.display = value ? "flex" : "none";
+	
+	// Si no hay texto o no cargó lista, ocultamos sugerencias
+	if (!value || allPokemonNames.length === 0) {
+		suggestionsBox.style.display = "none";
+		suggestionsBox.innerHTML = "";
+		return;
+	}
+	
+	const matches = allPokemonNames
+		.filter(name => name.startsWith(value))
+		.slice(0, 8);
+	
+	if (matches.length === 0) {
+		suggestionsBox.style.display = "none";
+		suggestionsBox.innerHTML = "";
+		return;
+	}
+	
+	suggestionsBox.innerHTML = matches
+		.map(name => `<div class="suggestion-item" data-name="${name}">${name}</div>`)
+		.join("");
+	
+	suggestionsBox.style.display = "block";
+	});
 
     suggestionsBox.addEventListener("click", (e) => {
       const item = e.target.closest(".suggestion-item");
       if (!item) return;
       const name = item.dataset.name;
       pokemonInput.value = name;
-      suggestionsBox.style.display = "none";
+      suggestionsBox.style.display = "flex";
       suggestionsBox.innerHTML = "";
     });
 
@@ -763,4 +767,3 @@
   </script>
 </body>
 </html>
-
