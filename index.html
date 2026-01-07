@@ -386,7 +386,6 @@
     /* Un poquito más espacioso en pantallas más grandes */
     @media (min-width: 600px) {
       .app {
-      .app {
         padding: 18px 20px 22px;
       }
     }
@@ -607,9 +606,13 @@
     suggestionsBox.addEventListener("click", (e) => {
       const item = e.target.closest(".suggestion-item");
       if (!item) return;
+	  
       const name = item.dataset.name;
       pokemonInput.value = name;
-      suggestionsBox.style.display = "flex";
+	  
+	  clearBtn.style.display = "flex";
+	  
+      suggestionsBox.style.display = "none";
       suggestionsBox.innerHTML = "";
     });
 
@@ -626,6 +629,7 @@
     pokemonForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = pokemonInput.value.trim().toLowerCase();
+	  clearBtn.style.display = name ? "flex" : "none";
 
       if (!name) {
         showMessage("Por favor, escribe el nombre de un Pokémon.", "error");
